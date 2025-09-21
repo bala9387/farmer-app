@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build: ./backend
+    depends_on:
+      - mongo
+      - ml-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/ai_crop
+      - JWT_SECRET=replace_with_secure_key
+      - ML_SERVICE_URL=http://ml-service:8000
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/usr/src/app
+    command: npm run dev
+
+  ml-service:
+    build: ./ml-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ml-service:/usr/src/app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_BASE=http://localhost:4000/api
+    volumes:
+      - ./frontend:/usr/src/app
+    command: npm run dev
+
+volumes:
+  mongo-data:
