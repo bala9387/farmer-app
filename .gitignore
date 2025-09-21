@@ -2,14 +2,8 @@
 __pycache__/
 *.pyc
 
-# Virtual environment
-.venv/
-
 # Node modules
 node_modules/
 
-# Logs
-*.log
-
-# Environment files
-*.env
+# Virtual environment
+.venv/
