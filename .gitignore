@@ -1,9 +1,15 @@
 # Python cache
-**/__pycache__/
+__pycache__/
 *.pyc
 
-# Node modules
-**/node_modules/
+# Virtual environment
+.venv/
 
-# VSCode settings
-.vscode/
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# Environment files
+*.env
